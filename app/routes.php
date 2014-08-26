@@ -10,12 +10,41 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::model('task','Task');
 
+
+Route::get('/','TasksController@home');
+Route::get('/create','TasksController@create');
+Route::get('/edit/{task}','TasksController@edit');
+Route::get('/delete/{task}','TasksController@delete');
+Route::get('task/{id}', 'TasksController@show')->where('id', '\d+');
+
+
+Route::post('/create', 'TasksController@saveCreate');
+Route::post('/edit', 'TasksController@doEdit');
+Route::post('/delete', 'TasksController@doDelete');
+
+/*
 Route::get('/', function()
 {
-	return View::make('home');
+	$task = Task::find(1);
+	return $task->title;
+
+	$task = Task::find(1);
+	$task->title = 'Eating different breakfast';
+	$task->body = 'Remember to buy beefsteak';
+	$task->save();
+
+	$task = new Task;
+	$task->title = 'Eating breakfast';
+	$task->body = 'Remember to buy bread, egg and milk.';
+	$task->save();
+
+	//Schema::dropIfExists('tasks');
+	//return View::make('home');
 	//return 'Hello! Welcome to my first app!';
 });
+*/
 
 Route::get('/about', function()
 {
